@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard — ExamSecure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<div class="toast" id="toast"><span id="toastMsg"></span><button onclick="closeToast()">×</button></div>
+
+<div class="dash-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <a class="logo" href="../index.html">
+        <span class="logo-icon">📝</span>
+        <span class="logo-name">ExamSecure</span>
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="snav-item active" data-page="overview"><span class="icon">🏠</span> Overview</button>
+      <button class="snav-item" data-page="exams"><span class="icon">📋</span> Available Exams</button>
+      <button class="snav-item" data-page="results"><span class="icon">📊</span> My Results</button>
+      <button class="snav-item" data-page="profile"><span class="icon">👤</span> Profile</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="user-chip">
+        <div class="avatar" id="userAvatar">S</div>
+        <div class="user-chip-info">
+          <strong id="userName">Student</strong>
+          <span>Student</span>
+        </div>
+        <button class="logout-btn" onclick="logout()" title="Logout">⇐</button>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button class="btn-ghost" id="themeBtn" style="flex:1">🌙 Theme</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="dash-main">
+    <div class="dash-header">
+      <h1 id="pageTitle">Overview</h1>
+      <p id="pageDesc">Welcome back! Here's your activity summary.</p>
+    </div>
+
+    <!-- OVERVIEW PAGE -->
+    <div class="dash-page active" id="page-overview">
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="sc-label">Available Exams</div>
+          <div class="sc-val" id="statAvail">—</div>
+          <div class="sc-sub">Ready to take</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Exams Taken</div>
+          <div class="sc-val" id="statTaken">—</div>
+          <div class="sc-sub">Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Avg Score</div>
+          <div class="sc-val" id="statAvg">—</div>
+          <div class="sc-sub">Across all exams</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-label">Best Score</div>
+          <div class="sc-val" id="statBest">—</div>
+          <div class="sc-sub">Personal best</div>
+        </div>
+      </div>
+
+      <div class="dash-table-wrap">
+        <div class="dash-table-hdr">
+          <h3>Recent Results</h3>
+          <button class="btn-ghost" onclick="showPage('results')">View All</button>
+        </div>
+        <table>
+          <thead><tr><th>Exam</th><th>Date</th><th>Score</th><th>Status</th></tr></thead>
+          <tbody id="recentResultsTbody"><tr><td colspan="4" style="color:var(--text-dim);text-align:center">No results yet.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- AVAILABLE EXAMS PAGE -->
+    <div class="dash-page" id="page-exams">
+      <div id="examCardsContainer" class="exam-cards">
+        <p style="color:var(--text-dim)">Loading exams…</p>
+      </div>
+    </div>
+
+    <!-- RESULTS PAGE -->
+    <div class="dash-page" id="page-results">
+      <div class="dash-table-wrap">
+        <div class="dash-table-hdr"><h3>All My Results</h3></div>
+        <table>
+          <thead><tr><th>Exam</th><th>Date</th><th>Score</th><th>Duration</th><th>Violations</th><th>Status</th></tr></thead>
+          <tbody id="allResultsTbody"><tr><td colspan="6" style="color:var(--text-dim);text-align:center">No results yet.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div class="dash-page" id="page-profile">
+      <div class="dash-form" style="max-width:500px">
+        <h3>My Profile</h3>
+        <div class="fg"><label>Full Name</label><input type="text" id="profileName"/></div>
+        <div class="fg"><label>Email</label><input type="email" id="profileEmail" disabled/></div>
+        <div class="fg"><label>Roll Number</label><input type="text" id="profileRoll"/></div>
+        <div class="fg"><label>Department</label><input type="text" id="profileDept"/></div>
+        <button class="btn-primary" onclick="saveProfile()">Save Changes</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="../js/theme.js"></script>
+<script src="../js/student.js"></script>
+</body>
+</html>

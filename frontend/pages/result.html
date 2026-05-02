@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Result — ExamSecure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<div class="toast" id="toast"><span id="toastMsg"></span><button onclick="closeToast()">×</button></div>
+<header id="header">
+  <div class="container hdr-inner">
+    <a class="logo" href="../index.html"><span class="logo-icon">📝</span><span class="logo-name">ExamSecure</span></a>
+    <div class="hdr-actions"><button class="btn-ghost" id="themeBtn">🌙</button></div>
+  </div>
+</header>
+
+<main style="padding:60px 24px">
+  <div class="result-card" id="resultCard">
+    <div style="font-size:50px;margin-bottom:16px" id="resultEmoji">🎉</div>
+    <h2 style="font-family:var(--mono);margin-bottom:8px" id="resultTitle">Exam Submitted</h2>
+    <p style="color:var(--text-dim)" id="resultExam">—</p>
+
+    <div class="score-circle" id="scoreCircle" style="margin:24px auto">
+      <span class="score-num" id="scoreNum">—</span>
+      <span class="score-label">Score</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0">
+      <div style="text-align:center"><div style="font-family:var(--mono);font-size:22px;color:var(--accent)" id="resCorrect">—</div><div style="font-size:12px;color:var(--text-dim)">Correct</div></div>
+      <div style="text-align:center"><div style="font-family:var(--mono);font-size:22px;color:var(--danger)" id="resWrong">—</div><div style="font-size:12px;color:var(--text-dim)">Wrong</div></div>
+      <div style="text-align:center"><div style="font-family:var(--mono);font-size:22px;color:var(--warn)" id="resVio">—</div><div style="font-size:12px;color:var(--text-dim)">Violations</div></div>
+    </div>
+
+    <div style="background:var(--bg3);border-radius:10px;padding:16px;text-align:left;margin-bottom:24px;font-size:13px" id="resDetails"></div>
+
+    <div style="display:flex;gap:12px;justify-content:center">
+      <a href="student.html" class="btn-primary">← Dashboard</a>
+      <button class="btn-outline" onclick="window.print()">🖨 Print Result</button>
+    </div>
+  </div>
+</main>
+
+<script src="../js/theme.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const result = JSON.parse(sessionStorage.getItem('lastResult') || 'null');
+  if (!result) { window.location.href = 'student.html'; return; }
+
+  const pct = result.percentage;
+  const passed = pct >= 40;
+
+  document.getElementById('resultEmoji').textContent = passed ? (pct >= 80 ? '🏆' : '🎉') : '😔';
+  document.getElementById('resultTitle').textContent = passed ? 'Congratulations!' : 'Better Luck Next Time';
+  document.getElementById('resultExam').textContent = result.examTitle;
+  document.getElementById('scoreNum').textContent = pct + '%';
+  document.getElementById('scoreCircle').style.borderColor = passed ? 'var(--accent)' : 'var(--danger)';
+  document.getElementById('scoreNum').style.color = passed ? 'var(--accent)' : 'var(--danger)';
+  document.getElementById('resCorrect').textContent = result.score;
+  document.getElementById('resWrong').textContent = result.total - result.score;
+  document.getElementById('resVio').textContent = result.violations;
+
+  const mins = Math.floor(result.timeTaken / 60);
+  const secs = result.timeTaken % 60;
+  document.getElementById('resDetails').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--text-dim)">Exam</span><strong>${result.examTitle}</strong></div>
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--text-dim)">Submitted At</span><strong>${new Date(result.submittedAt).toLocaleString()}</strong></div>
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--text-dim)">Time Taken</span><strong>${mins}m ${secs}s</strong></div>
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--text-dim)">Reason</span><strong>${result.reason}</strong></div>
+      <div style="display:flex;justify-content:space-between"><span style="color:var(--text-dim)">Result</span><strong style="color:${passed?'var(--accent)':'var(--danger)'}">${passed?'PASS':'FAIL'}</strong></div>
+    </div>
+  `;
+
+  if (result.violations > 0) {
+    const logHtml = result.violationLog.map(v => `<div style="color:var(--danger);font-family:var(--mono);font-size:11px">⚠ ${v}</div>`).join('');
+    document.getElementById('resDetails').innerHTML += `<div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px"><div style="font-size:12px;font-weight:600;margin-bottom:6px;color:var(--text-dim)">VIOLATION LOG</div>${logHtml}</div>`;
+  }
+});
+</script>
+</body>
+</html>

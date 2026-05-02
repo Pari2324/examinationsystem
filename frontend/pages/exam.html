@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Exam — ExamSecure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body style="overflow:hidden">
+
+<div class="toast" id="toast"><span id="toastMsg"></span><button onclick="closeToast()">×</button></div>
+
+<!-- VIOLATION OVERLAY -->
+<div class="violation-overlay" id="violationOverlay">
+  <div class="violation-box">
+    <h2 id="vioTitle">⚠️ Warning!</h2>
+    <p id="vioMsg">You have switched tabs or exited fullscreen. This has been recorded.</p>
+    <p id="vioCount" style="font-family:var(--mono);color:var(--danger);font-weight:700"></p>
+    <button class="btn-primary" onclick="dismissViolation()">Return to Exam</button>
+  </div>
+</div>
+
+<!-- EXAM TOPBAR -->
+<div class="exam-topbar">
+  <div class="exam-title" id="examTitleBar">Loading exam…</div>
+  <div class="exam-timer" id="examTimer">--:--</div>
+  <div style="display:flex;gap:12px;align-items:center">
+    <span style="font-size:12px;color:var(--text-dim)" id="vioIndicator">Violations: 0/3</span>
+    <button class="btn-ghost" onclick="confirmSubmit()">Submit Exam</button>
+  </div>
+</div>
+
+<!-- EXAM BODY -->
+<div class="exam-body" style="padding-top:20px">
+
+  <!-- Question area -->
+  <div class="exam-question-area">
+    <div class="qnum" id="qNum">Question 1 of 1</div>
+    <div class="qtext" id="qText">Loading…</div>
+    <div class="options-list" id="optionsList"></div>
+    <div class="exam-nav">
+      <button class="btn-ghost" id="prevBtn" onclick="prevQ()">← Previous</button>
+      <button class="btn-primary" id="nextBtn" onclick="nextQ()">Next →</button>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="exam-sidebar">
+    <h4>Question Map</h4>
+    <div class="q-grid" id="qGrid"></div>
+
+    <div style="margin-bottom:12px">
+      <div class="webcam-box" id="webcamBox">
+        <video id="webcamVideo" autoplay muted playsinline style="width:100%;height:100%;object-fit:cover;display:none"></video>
+        <div class="cam-placeholder" id="camPlaceholder">📷<br>Requesting webcam…</div>
+      </div>
+      <div style="font-size:11px;color:var(--danger);font-family:var(--mono);text-align:center" id="camStatus">Camera: Pending</div>
+    </div>
+
+    <h4 style="margin-top:12px">Violation Log</h4>
+    <div class="violation-log" id="vioLog">
+      <div style="color:var(--text-dim)">No violations recorded.</div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/theme.js"></script>
+<script src="../js/exam.js"></script>
+</body>
+</html>

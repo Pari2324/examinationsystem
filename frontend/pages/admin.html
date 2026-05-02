@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard — ExamSecure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<div class="toast" id="toast"><span id="toastMsg"></span><button onclick="closeToast()">×</button></div>
+
+<div class="dash-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <a class="logo" href="../index.html">
+        <span class="logo-icon">📝</span><span class="logo-name">ExamSecure</span>
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="snav-item active" data-page="overview"><span class="icon">📊</span> Overview</button>
+      <button class="snav-item" data-page="exams"><span class="icon">📋</span> Manage Exams</button>
+      <button class="snav-item" data-page="create-exam"><span class="icon">➕</span> Create Exam</button>
+      <button class="snav-item" data-page="results"><span class="icon">🏆</span> Results</button>
+      <button class="snav-item" data-page="violations"><span class="icon">🚨</span> Violations</button>
+      <button class="snav-item" data-page="contacts"><span class="icon">✉️</span> Contact Forms</button>
+      <button class="snav-item" data-page="students"><span class="icon">👥</span> Students</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="user-chip">
+        <div class="avatar" style="background:var(--accent2)">A</div>
+        <div class="user-chip-info">
+          <strong id="adminName">Admin</strong><span>Administrator</span>
+        </div>
+        <button class="logout-btn" onclick="logout()">⇐</button>
+      </div>
+      <div style="margin-top:10px">
+        <button class="btn-ghost" id="themeBtn" style="width:100%">🌙 Theme</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="dash-main">
+    <div class="dash-header">
+      <h1 id="pageTitle">Overview</h1>
+      <p id="pageDesc">System summary and live stats</p>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="dash-page active" id="page-overview">
+      <div class="stat-cards" style="grid-template-columns:repeat(4,1fr)">
+        <div class="stat-card"><div class="sc-label">Total Students</div><div class="sc-val" id="st-students">0</div><div class="sc-sub">Registered</div></div>
+        <div class="stat-card"><div class="sc-label">Active Exams</div><div class="sc-val" id="st-exams">0</div><div class="sc-sub">Published</div></div>
+        <div class="stat-card"><div class="sc-label">Submissions</div><div class="sc-val" id="st-subs">0</div><div class="sc-sub">All time</div></div>
+        <div class="stat-card"><div class="sc-label">Violations</div><div class="sc-val" id="st-vios" style="color:var(--danger)">0</div><div class="sc-sub">Flagged events</div></div>
+      </div>
+
+      <div class="dash-table-wrap">
+        <div class="dash-table-hdr"><h3>Recent Submissions</h3></div>
+        <table>
+          <thead><tr><th>Student</th><th>Exam</th><th>Score</th><th>Violations</th><th>Time</th><th>Status</th></tr></thead>
+          <tbody id="recentSubsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- MANAGE EXAMS -->
+    <div class="dash-page" id="page-exams">
+      <div class="dash-table-wrap">
+        <div class="dash-table-hdr">
+          <h3>All Exams</h3>
+          <button class="btn-primary" onclick="showPage('create-exam')">+ Create Exam</button>
+        </div>
+        <table>
+          <thead><tr><th>Title</th><th>Subject</th><th>Duration</th><th>Questions</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="examsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CREATE EXAM -->
+    <div class="dash-page" id="page-create-exam">
+      <div class="dash-form">
+        <h3>Create New Exam</h3>
+        <div class="form-row">
+          <div class="fg"><label>Exam Title *</label><input id="newTitle" placeholder="e.g. Computer Networks Mid-Term"/></div>
+          <div class="fg"><label>Subject *</label><input id="newSubject" placeholder="e.g. CN"/></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label>Duration (minutes) *</label><input type="number" id="newDuration" placeholder="60" min="5"/></div>
+          <div class="fg"><label>Pass Mark (%)</label><input type="number" id="newPass" placeholder="40" min="1" max="100"/></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label>Start Date/Time</label><input type="datetime-local" id="newStart"/></div>
+          <div class="fg"><label>End Date/Time</label><input type="datetime-local" id="newEnd"/></div>
+        </div>
+        <div class="fg"><label>Instructions</label><textarea id="newInstructions" rows="3" placeholder="Exam instructions for students…"></textarea></div>
+
+        <h3 style="margin-top:8px">Questions</h3>
+        <div id="questionsContainer"></div>
+        <button class="btn-ghost" onclick="addQuestion()">+ Add Question</button>
+        <button class="btn-primary" onclick="saveExam()" style="margin-top:8px">Save Exam</button>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="dash-page" id="page-results">
+      <div style="display:flex;gap:12px;margin-bottom:20px">
+        <input id="filterStudent" placeholder="Filter by student…" style="flex:1;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:8px;font-size:14px" oninput="filterResults()"/>
+        <button class="btn-ghost" onclick="exportCSV()">⬇ Export CSV</button>
+      </div>
+      <div class="dash-table-wrap">
+        <div class="dash-table-hdr"><h3>All Results</h3></div>
+        <table>
+          <thead><tr><th>Student</th><th>Exam</th><th>Score</th><th>%</th><th>Violations</th><th>Submitted</th><th>Status</th></tr></thead>
+          <tbody id="resultsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- VIOLATIONS -->
+    <div class="dash-page" id="page-violations">
+      <div class="dash-table-wrap">
+        <div class="dash-table-hdr"><h3>Violation Activity Log</h3></div>
+        <table>
+          <thead><tr><th>Student</th><th>Exam</th><th>Violation</th><th>Count</th><th>Time</th><th>Action</th></tr></thead>
+          <tbody id="vioTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CONTACT FORMS -->
+    <div class="dash-page" id="page-contacts">
+      <div class="dash-table-wrap">
+        <div class="dash-table-hdr"><h3>Contact Submissions</h3></div>
+        <table>
+          <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Message</th><th>Date</th></tr></thead>
+          <tbody id="contactsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- STUDENTS -->
+    <div class="dash-page" id="page-students">
+      <div class="dash-table-wrap">
+        <div class="dash-table-hdr"><h3>Registered Students</h3></div>
+        <table>
+          <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Exams</th><th>Avg Score</th><th>Status</th></tr></thead>
+          <tbody id="studentsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="../js/theme.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

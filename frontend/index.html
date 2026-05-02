@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ExamSecure – Online Examination System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- Loading Bar -->
+<div class="load-bar" id="loadBar"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><span id="toastMsg"></span><button onclick="closeToast()">×</button></div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="container hdr-inner">
+    <a class="logo" href="index.html">
+      <span class="logo-icon">📝</span>
+      <span class="logo-name">ExamSecure</span>
+    </a>
+    <nav id="navMenu">
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#roles">Roles</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="hdr-actions">
+      <button class="btn-ghost" id="themeBtn">🌙</button>
+      <a href="pages/login.html" class="btn-primary">Login →</a>
+      <button class="burger" id="burger">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid">
+    <div class="hero-badge">🔐 Military-grade security</div>
+    <h1 class="hero-title">
+      Online Exams.<br/>
+      <span class="accent">Zero Compromise.</span>
+    </h1>
+    <p class="hero-sub">A proctored, AI-assisted examination platform for educational institutions. Tab detection, webcam monitoring, fullscreen enforcement — all in one.</p>
+    <div class="hero-cta">
+      <a href="pages/login.html" class="btn-primary lg">Get Started</a>
+      <a href="#features" class="btn-outline lg">See Features</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n" data-count="100">0</span><span>% Secure</span></div>
+      <div class="hstat"><span class="hstat-n" data-count="24">0</span><span>/7 Available</span></div>
+      <div class="hstat"><span class="hstat-n" data-count="3">0</span><span> Violations Tracked</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="monitor-mock">
+      <div class="monitor-bar"><span></span><span></span><span></span></div>
+      <div class="monitor-body">
+        <div class="mock-timer">⏱ 01:23:45</div>
+        <div class="mock-q">Q12 / 30 — Which protocol ensures secure HTTP?</div>
+        <div class="mock-opts">
+          <div class="mopt selected">A. HTTPS</div>
+          <div class="mopt">B. FTP</div>
+          <div class="mopt">C. SSH</div>
+          <div class="mopt">D. SMTP</div>
+        </div>
+        <div class="mock-cam">📷 Webcam Active</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section about-section">
+  <div class="container">
+    <div class="section-label">About</div>
+    <h2 class="section-title">Built for Integrity</h2>
+    <p class="section-sub">ExamSecure combines robust backend security with a smooth student experience — no plugins, no installs, just a browser.</p>
+    <div class="about-cards">
+      <div class="acard">
+        <div class="acard-icon">🏛️</div>
+        <h3>Institutional Grade</h3>
+        <p>Role-based access, JWT authentication, and bcrypt-hashed credentials keep your data safe.</p>
+      </div>
+      <div class="acard">
+        <div class="acard-icon">🤖</div>
+        <h3>AI Proctoring Logic</h3>
+        <p>Behavioral tracking flags suspicious patterns — repeated tab switches, screen exits, unusual timing.</p>
+      </div>
+      <div class="acard">
+        <div class="acard-icon">📊</div>
+        <h3>Real-Time Analytics</h3>
+        <p>Admins see live exam activity, violation alerts, and downloadable result reports.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="section features-section">
+  <div class="container">
+    <div class="section-label">Features</div>
+    <h2 class="section-title">Everything You Need</h2>
+    <div class="features-grid" id="featuresGrid"></div>
+  </div>
+</section>
+
+<!-- ROLES -->
+<section id="roles" class="section roles-section">
+  <div class="container">
+    <div class="section-label">User Roles</div>
+    <h2 class="section-title">Two Portals, One System</h2>
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-top student-bg">
+          <div class="role-emoji">👨‍🎓</div>
+          <h3>Student Portal</h3>
+        </div>
+        <ul>
+          <li>View scheduled exams</li>
+          <li>Take timed, proctored exams</li>
+          <li>Auto-submit on timeout</li>
+          <li>Instant result view</li>
+          <li>Performance history</li>
+          <li>Webcam monitoring consent</li>
+        </ul>
+        <a href="pages/login.html" class="btn-primary full">Login as Student →</a>
+      </div>
+      <div class="role-card featured">
+        <div class="role-top admin-bg">
+          <div class="role-emoji">👨‍💼</div>
+          <h3>Admin Dashboard</h3>
+        </div>
+        <ul>
+          <li>Create & manage exams</li>
+          <li>Question bank management</li>
+          <li>Live exam monitoring</li>
+          <li>View violation logs</li>
+          <li>Contact submissions inbox</li>
+          <li>Export reports</li>
+        </ul>
+        <a href="pages/login.html" class="btn-primary full">Login as Admin →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section contact-section">
+  <div class="container">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <div class="cinfo-card"><div class="cinfo-icon">📍</div><h4>Address</h4><p>University Campus, Tech Park</p></div>
+        <div class="cinfo-card"><div class="cinfo-icon">✉️</div><h4>Email</h4><p>info@examsecure.edu</p></div>
+        <div class="cinfo-card"><div class="cinfo-icon">📞</div><h4>Phone</h4><p>+1 (555) 123-4567</p></div>
+      </div>
+      <form id="contactForm" class="contact-form" novalidate>
+        <div class="form-row">
+          <div class="fg">
+            <label>Name <span class="req">*</span></label>
+            <input type="text" id="name" placeholder="Your full name"/>
+            <span class="err" id="nameErr"></span>
+          </div>
+          <div class="fg">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" id="email" placeholder="your@email.com"/>
+            <span class="err" id="emailErr"></span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="fg">
+            <label>Phone <span class="req">*</span></label>
+            <input type="text" id="phone" placeholder="+91 98765 43210"/>
+            <span class="err" id="phoneErr"></span>
+          </div>
+          <div class="fg">
+            <label>Role <span class="req">*</span></label>
+            <select id="role">
+              <option value="">Select role</option>
+              <option>Student</option>
+              <option>Teacher</option>
+              <option>Administrator</option>
+            </select>
+            <span class="err" id="roleErr"></span>
+          </div>
+        </div>
+        <div class="fg">
+          <label>Message <span class="req">*</span></label>
+          <textarea id="message" rows="4" placeholder="Your message..."></textarea>
+          <span class="err" id="msgErr"></span>
+        </div>
+        <div class="fg chk-group">
+          <label class="chk-label">
+            <input type="checkbox" id="terms"/>
+            I agree to the <a href="#">Terms & Conditions</a>
+          </label>
+          <span class="err" id="termsErr"></span>
+        </div>
+        <button type="submit" class="btn-primary lg full" id="submitBtn">Send Message</button>
+        <div class="form-status" id="formStatus"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="logo-name">ExamSecure</span>
+      <p>Secure online examination for modern institutions.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#roles">Roles</a>
+      <a href="#contact">Contact</a>
+      <a href="pages/login.html">Login</a>
+    </div>
+    <p class="footer-copy">© 2026 ExamSecure — Academic PBL Project</p>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop">↑</button>
+
+<script src="js/theme.js"></script>
+<script src="js/main.js"></script>
+<script src="js/validation.js"></script>
+</body>
+</html>
