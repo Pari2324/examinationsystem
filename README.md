@@ -279,29 +279,5 @@ These appear highlighted in the admin violations panel.
 
 ---
 
-## Viva Explanation (Simple English)
-
-**Q: What is this project?**
-A: ExamSecure is a web-based system for conducting secure online exams. It has two user types — students who take exams, and admins who create and manage them.
-
-**Q: What technologies did you use?**
-A: Frontend uses plain HTML, CSS, and JavaScript. Backend uses Node.js with Express framework. Database is MongoDB. Authentication uses JWT tokens. Passwords are hashed with bcrypt.
-
-**Q: How does security work?**
-A: Every API request from a logged-in user must carry a JWT token in the Authorization header. The backend verifies this token on every protected route. Admins and students have separate permissions enforced by the `restrictTo` middleware.
-
-**Q: How does anti-cheating work?**
-A: The browser monitors three things — tab visibility, window focus, and fullscreen status. Any violation is recorded with a timestamp. After 3 violations the exam auto-submits. A webcam feed is captured throughout and snapshots are taken at each violation. The backend also flags results where the submission time was suspiciously short.
-
-**Q: How are exams graded?**
-A: When a student submits, the backend fetches the correct answers from MongoDB (never sent to the browser) and compares them to the student's answers. The score, percentage, and pass/fail status are calculated server-side and stored immediately.
-
-**Q: What is JWT?**
-A: JSON Web Token. After login, the server creates a signed token containing the user's ID and role. The client sends this token with every request. The server verifies the signature to confirm identity without hitting the database every time.
-
-**Q: What is bcrypt?**
-A: A password hashing algorithm. Passwords are never stored in plain text. When a user logs in, bcrypt compares the entered password against the stored hash using a one-way function.
-
----
 
 *ExamSecure — Web Technology PBL | Academic Project 2024*
