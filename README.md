@@ -92,12 +92,6 @@ npm install
 
 The `.env` file is already included with defaults:
 ```
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/examsecure
-JWT_SECRET=examsecure_super_secret_key_change_in_production_2024
-JWT_EXPIRES_IN=7d
-```
-Change `JWT_SECRET` to a random string before deploying.
 
 ---
 
