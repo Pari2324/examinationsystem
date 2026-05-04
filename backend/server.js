@@ -41,6 +41,10 @@ app.use('/api/results', resultRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/users',   userRoutes);
 
+app.get("/",(req,res)=>{
+  res.send("API is running");
+});
+
 // ── HEALTH CHECK ──
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', time: new Date().toISOString(), db: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected' });
