@@ -20,21 +20,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ── MOBILE BURGER ──
   const burger = document.getElementById('burger');
-  const nav = document.getElementById('navMenu');
-  if (burger && nav) {
-    burger.addEventListener('click', () => {
-      const open = nav.style.display === 'flex';
-      nav.style.display = open ? '' : 'flex';
-      nav.style.flexDirection = 'column';
-      nav.style.position = 'absolute';
-      nav.style.top = '64px';
-      nav.style.left = '0'; nav.style.right = '0';
-      nav.style.background = 'var(--bg2)';
-      nav.style.padding = '16px 24px';
-      nav.style.borderBottom = '1px solid var(--border)';
-      burger.textContent = open ? '☰' : '✕';
-    });
-  }
+const nav = document.getElementById('navMenu');
+
+if (burger && nav) {
+  burger.addEventListener('click', () => {
+    nav.classList.toggle('active');
+  });
+}
 
   // ── ANIMATED COUNTER ──
   const counters = document.querySelectorAll('.hstat-n');

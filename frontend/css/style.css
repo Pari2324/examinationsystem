@@ -579,3 +579,23 @@ tr:hover td { background: rgba(255,255,255,0.02); }
 @media (max-width: 480px) {
   .stat-cards { grid-template-columns: 1fr; }
 }
+@media (max-width: 768px) {
+  #navMenu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #0d1117;
+    padding: 15px;
+  }
+
+  #navMenu.active {
+    display: flex;
+  }
+
+  .burger {
+    display: block;
+  }
+}
