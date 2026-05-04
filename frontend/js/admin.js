@@ -1,6 +1,6 @@
 // admin.js — Admin dashboard logic
 
-const API = 'http://localhost:5000/api';
+const API = 'https://examinationsystem-w00u.onrender.com/api';
 let allResults = [];
 let qCount = 0;
 

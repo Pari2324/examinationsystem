@@ -1,6 +1,6 @@
 // exam.js — Full exam engine with anti-cheating system
 
-const API = 'http://localhost:5000/api';
+const API = 'https://examinationsystem-w00u.onrender.com/api';
 
 // ── STATE ──
 let exam = null;

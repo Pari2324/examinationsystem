@@ -1,6 +1,6 @@
 // student.js — Student dashboard logic
 
-const API = 'http://localhost:5000/api';
+const API = 'https://examinationsystem-w00u.onrender.com/api';
 
 // ── AUTH GUARD ──
 function getUser() {
