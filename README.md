@@ -280,4 +280,4 @@ These appear highlighted in the admin violations panel.
 ---
 
 
-*ExamSecure — Web Technology PBL | Academic Project 2024*
+*ExamSecure — Web Technology PBL | Academic Project 2026*
